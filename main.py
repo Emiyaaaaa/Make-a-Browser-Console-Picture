@@ -25,11 +25,6 @@ class MyImage():
         self.outputPath = OUTPUT_PATH if(self.varIsDefined('OUTPUT_PATH')) else 'consolePicture.js'
         # 按照设置宽高调整图片大小
         self.resizeImage = self.resizeImg(self.path,self.width,self.height)
-        # 设置马赛克模式中的数据
-        self.mosaicModeWidth = self.width
-        self.resizeImageForMosaicMode = self.resizeImg(self.path,self.width*1,self.height)
-        self.mosaicModeWidthStep = 1
-
 
 
     def resizeImg(self,path,width,height):
@@ -119,13 +114,12 @@ class pic2str():
         content_txt = '\\n\\\n'
         css_txt = ''
         height = imgObj.height
-        width = imgObj.mosaicModeWidth
+        width = imgObj.width
         fontSize = imgObj.fontSize
-        img = imgObj.resizeImageForMosaicMode
-        step = imgObj.mosaicModeWidthStep
+        img = imgObj.resizeImage
 
         for i in range(height):
-            for j in range(0,width,step):
+            for j in range(0,width):
                 pixelColor = str(img.getpixel((j, i)))# 获取像素颜色值
                 nextIndex = j+1
                 if nextIndex >= width:
